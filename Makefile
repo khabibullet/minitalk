@@ -6,25 +6,35 @@
 #    By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 21:25:23 by anemesis          #+#    #+#              #
-#    Updated: 2022/03/19 15:56:25 by anemesis         ###   ########.fr        #
+#    Updated: 2022/03/26 16:22:25 by anemesis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	push_swap
+NAME_1		=	server
 
-NAME_B		=	checker
+NAME_2		=	client
 
-HEADER		=	./inc/push_swap.h
+NAME_B_1	=	server_bonus
 
-HEADER_B	=	./inc/push_swap_bonus.h
+NAME_B_2	=	client_bonus
+
+HEADER		=	./inc/minitalk.h
+
+HEADER_B	=	./inc/minitalk_bonus.h
 
 SRC			=	$(wildcard ./src/*.c)
 
 SRC_B		=	$(wildcard ./src_bonus/*.c)
 
-OBJ			=	$(SRC:./src/%.c=./obj/%.o)
+OBJ_1		=	$(patsubst %./obj/client.o,%,$(SRC:./src/%.c=./obj/%.o))
 
-OBJ_B		=	$(patsubst %./obj/main.o,%,$(OBJ)) $(SRC_B:./src_bonus/%.c=./obj_bonus/%.o)
+OBJ_2		=	$(patsubst %./obj/server.o,%,$(SRC:./src/%.c=./obj/%.o))
+
+OBJ_B_1		=	$(patsubst %./obj/server.o,%,$(OBJ_1)) \
+				$(patsubst %./obj_bonus/client_bonus.o,%,$(SRC_B:./src_bonus/%.c=./obj_bonus/%.o))
+
+OBJ_B_2		=	$(patsubst %./obj/client.o,%,$(OBJ_2)) \
+				$(patsubst %./obj_bonus/server_bonus.o,%,$(SRC_B:./src_bonus/%.c=./obj_bonus/%.o))
 
 CC			=	gcc
 
@@ -34,13 +44,16 @@ INC			=	-I ./inc -I ./libft
 
 LIB			=	-L ./libft -lft
 
-all: lib $(NAME)
+all: lib $(NAME_1) $(NAME_2)
 
 lib:
 	@make -C ./libft
 
-$(NAME): $(OBJ) $(HEADER)
-	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ) -o $(NAME)
+$(NAME_1): $(OBJ_1) $(HEADER)
+	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_1) -o $(NAME_1)
+
+$(NAME_2): $(OBJ_2) $(HEADER)
+	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_2) -o $(NAME_2)
 
 ./obj/%.o: ./src/%.c | obj
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
@@ -48,10 +61,13 @@ $(NAME): $(OBJ) $(HEADER)
 obj:
 	@mkdir -p obj
 
-bonus: all $(NAME_B)
+bonus: all $(NAME_B_1) $(NAME_B_2)
 	
-$(NAME_B): $(OBJ_B) $(HEADER_B)
-	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_B) -o $(NAME_B)
+$(NAME_B_1): $(OBJ_B_1) $(HEADER_B)
+	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_B_1) -o $(NAME_B_1)
+
+$(NAME_B_2): $(OBJ_B_2) $(HEADER_B)
+	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_B_2) -o $(NAME_B_2)
 
 ./obj_bonus/%.o: ./src_bonus/%.c | obj_bonus
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
@@ -64,7 +80,7 @@ clean:
 	@make clean -C ./libft
 
 fclean: clean
-	@rm -rf $(NAME) $(NAME_B)
+	@rm -rf $(NAME_1) $(NAME_B_1) $(NAME_2) $(NAME_B_2)
 	@make fclean -C ./libft
 
 re: fclean all bonus
