@@ -6,7 +6,7 @@
 /*   By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 14:26:20 by anemesis          #+#    #+#             */
-/*   Updated: 2022/03/17 18:27:45 by anemesis         ###   ########.fr       */
+/*   Updated: 2022/03/27 16:47:38 by anemesis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void	exit_error(void);
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 int		ft_abs(int a);
+int		ft_pow(int base, int degr);
 
 #endif	/*LIBFT_H*/

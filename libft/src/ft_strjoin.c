@@ -6,7 +6,7 @@
 /*   By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 16:24:29 by anemesis          #+#    #+#             */
-/*   Updated: 2022/03/13 16:55:36 by anemesis         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:27:17 by anemesis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	if (!new)
 	{
 		free(s1);
-		return (NULL);
+		exit(EXIT_FAILURE);
 	}
 	ft_strlcpy(new, s1, s1_len + 1);
 	ft_strlcat(new, s2, s1_len + s2_len + 1);
