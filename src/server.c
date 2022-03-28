@@ -6,7 +6,7 @@
 /*   By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 15:08:56 by anemesis          #+#    #+#             */
-/*   Updated: 2022/03/27 20:17:27 by anemesis         ###   ########.fr       */
+/*   Updated: 2022/03/28 21:37:59 by anemesis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	get_message(int signal, siginfo_t *info, void *context)
 			ft_printf("%s", str);
 			free(str);
 			kill(info->si_pid, SIGUSR1);
+			usleep(100);
 			flag = 0;
 		}
 		count = 0;
