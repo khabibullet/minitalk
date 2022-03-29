@@ -6,66 +6,39 @@
 /*   By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 15:08:06 by anemesis          #+#    #+#             */
-/*   Updated: 2022/03/28 21:37:59 by anemesis         ###   ########.fr       */
+/*   Updated: 2022/03/29 21:28:32 by anemesis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
 
-int g_flag = 0;
+int	g_flag = 0;
 
-void	get_feedback(int signal, siginfo_t *info, void *context)
+void	get_response(int signal)
 {
-	(void)info;
-	(void)context;
 	(void)signal;
-	ft_putstr("Message has been successfully sent\n");
 	g_flag = 1;
 }
 
-void	dec_to_binary(int symbol, char *binary)
+void	send_str(char *str, int serv_pid)
 {
-	int	i;
-	int	num;
-
-	binary[8] = '\0';
-	binary[0] = '1';
-	if (symbol < 0)
-	{
-		binary[0] = '0';
-		symbol *= -1;
-	}
-	i = 1;
-	num = 64;
-	while (i < 8)
-	{
-		binary[i] = '0';
-		if (symbol >= num)
-		{
-			binary[i] = '1';
-			symbol -= num;
-		}
-		num /= 2;
-		i++;
-	}
-}
-
-void	send_binary(char *binary, int serv_pid)
-{
-	int	i;
+	size_t	i;
+	int		num;
 
 	i = 0;
-	while (binary[i])
+	while (str[i])
 	{
-		if (binary[i] == '1')
+		num = 128;
+		while (num)
 		{
-			kill(serv_pid, SIGUSR1);
-			usleep(100);
-		}
-		else
-		{
-			kill(serv_pid, SIGUSR2);
-			usleep(100);
+			if (num & str[i])
+				kill(serv_pid, SIGUSR1);
+			else
+				kill(serv_pid, SIGUSR2);
+			while (!g_flag)
+				continue ;
+			g_flag = 0;
+			num = num >> 1;
 		}
 		i++;
 	}
@@ -74,9 +47,6 @@ void	send_binary(char *binary, int serv_pid)
 int	main(int argc, char *argv[])
 {
 	struct sigaction	fback;
-	char				binary[9];
-	size_t				i;
-	size_t				len;
 	pid_t				serv_pid;
 
 	if (argc != 3)
@@ -85,18 +55,8 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	serv_pid = ft_atoi(argv[1]);
-	fback.sa_sigaction = get_feedback;
-	fback.sa_flags = SA_SIGINFO;
-	i = 0;
-	len = ft_strlen(argv[2]);
-	while (i <= len)
-	{
-		dec_to_binary(argv[2][i], binary);
-		send_binary(binary, serv_pid);
-		i++;
-	}
+	fback.sa_handler = get_response;
 	sigaction(SIGUSR1, &fback, NULL);
-	while (1)
-		continue ;
+	send_str(argv[2], serv_pid);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 21:25:23 by anemesis          #+#    #+#              #
-#    Updated: 2022/03/27 16:58:01 by anemesis         ###   ########.fr        #
+#    Updated: 2022/03/29 21:23:06 by anemesis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,10 @@ NAME_B_2	=	client_bonus
 HEADER		=	./inc/minitalk.h
 
 HEADER_B	=	./inc/minitalk_bonus.h
+
+OBJDIR		=	obj
+
+OBJDIR_B	=	obj_bonus
 
 SRC			=	$(wildcard ./src/*.c)
 
@@ -55,11 +59,9 @@ $(NAME_1): $(OBJ_1) $(HEADER)
 $(NAME_2): $(OBJ_2) $(HEADER)
 	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_2) -o $(NAME_2)
 
-./obj/%.o: ./src/%.c | obj
+./$(OBJDIR)/%.o: ./src/%.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-obj:
-	@mkdir -p obj
 
 bonus: all $(NAME_B_1) $(NAME_B_2)
 	
@@ -69,11 +71,9 @@ $(NAME_B_1): $(OBJ_B_1) $(HEADER_B)
 $(NAME_B_2): $(OBJ_B_2) $(HEADER_B)
 	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_B_2) -o $(NAME_B_2)
 
-./obj_bonus/%.o: ./src_bonus/%.c | obj_bonus
+./$(OBJDIR_B)/%.o: ./src_bonus/%.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-obj_bonus:
-	@mkdir -p obj_bonus
 
 clean:
 	@rm -rf obj obj_bonus
@@ -85,4 +85,4 @@ fclean: clean
 
 re: fclean all bonus
 
-.PHONY: bonus all obj clean fclean re
+.PHONY: bonus all obj obj_bonus clean fclean re
