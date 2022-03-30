@@ -6,11 +6,13 @@
 /*   By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 15:08:56 by anemesis          #+#    #+#             */
-/*   Updated: 2022/03/29 21:28:30 by anemesis         ###   ########.fr       */
+/*   Updated: 2022/03/30 12:25:11 by anemesis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
+
+int	g_response[2] = {0};
 
 void	get_message(int signal, siginfo_t *info, void *context)
 {
@@ -33,7 +35,8 @@ void	get_message(int signal, siginfo_t *info, void *context)
 		ft_putchar(symb);
 		flag = 0;
 	}
-	kill(info->si_pid, SIGUSR1);
+	g_response[1] = info->si_pid;
+	g_response[0] = 1;
 }
 
 int	main(void)
@@ -43,11 +46,16 @@ int	main(void)
 
 	serv_pid = getpid();
 	ft_printf("Server PID is %d\n", serv_pid);
-	act.sa_sigaction = get_message;
 	act.sa_flags = SA_SIGINFO;
+	act.sa_sigaction = get_message;
 	sigaction(SIGUSR1, &act, NULL);
 	sigaction(SIGUSR2, &act, NULL);
 	while (1)
-		continue ;
+	{
+		while (!g_response[0])
+			continue ;
+		g_response[0] = 0;
+		kill(g_response[1], SIGUSR1);
+	}
 	return (0);
 }
