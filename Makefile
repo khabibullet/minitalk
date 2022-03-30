@@ -6,7 +6,7 @@
 #    By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 21:25:23 by anemesis          #+#    #+#              #
-#    Updated: 2022/03/29 21:23:06 by anemesis         ###   ########.fr        #
+#    Updated: 2022/03/30 12:53:56 by anemesis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME_1		=	server
 
 NAME_2		=	client
 
-NAME_B_1	=	server_bonus
+NAME_B_1	=	server_b
 
-NAME_B_2	=	client_bonus
+NAME_B_2	=	client_b
 
 HEADER		=	./inc/minitalk.h
 
@@ -63,7 +63,7 @@ $(NAME_2): $(OBJ_2) $(HEADER)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-bonus: all $(NAME_B_1) $(NAME_B_2)
+bonus: lib $(NAME_B_1) $(NAME_B_2)
 	
 $(NAME_B_1): $(OBJ_B_1) $(HEADER_B)
 	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_B_1) -o $(NAME_B_1)
