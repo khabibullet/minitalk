@@ -21,7 +21,7 @@ Source files are lintered by "**42 Norminette**" linter.
 Mandatory part
 
 ```console
-host@name:~$ make # mandatory
+host@name:~$ make
 host@name:~$ ./server
 host@name:~$ ./clien server_PID "your message"
 ```
