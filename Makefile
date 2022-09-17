@@ -6,7 +6,7 @@
 #    By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 21:25:23 by anemesis          #+#    #+#              #
-#    Updated: 2022/05/25 17:38:47 by anemesis         ###   ########.fr        #
+#    Updated: 2022/09/17 11:06:01 by anemesis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,37 +51,37 @@ LIB			=	-L ./libft -lft
 all: lib $(NAME_1) $(NAME_2)
 
 lib:
-	@make -C ./libft
+	make -C ./libft
 
 $(NAME_1): $(OBJ_1) $(HEADER)
-	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_1) -o $(NAME_1)
+	$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_1) -o $(NAME_1)
 
 $(NAME_2): $(OBJ_2) $(HEADER)
-	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_2) -o $(NAME_2)
+	$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_2) -o $(NAME_2)
 
 ./$(OBJDIR)/%.o: ./src/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 bonus: lib $(NAME_B_1) $(NAME_B_2)
 	
 $(NAME_B_1): $(OBJ_B_1) $(HEADER_B)
-	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_B_1) -o $(NAME_B_1)
+	$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_B_1) -o $(NAME_B_1)
 
 $(NAME_B_2): $(OBJ_B_2) $(HEADER_B)
-	@$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_B_2) -o $(NAME_B_2)
+	$(CC) $(CFLAGS) $(INC) $(LIB) $(OBJ_B_2) -o $(NAME_B_2)
 
 ./$(OBJDIR_B)/%.o: ./src_bonus/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
-	@rm -rf obj obj_bonus
-	@make clean -C ./libft
+	rm -rf obj obj_bonus
+	make clean -C ./libft
 
 fclean: clean
-	@rm -rf $(NAME_1) $(NAME_B_1) $(NAME_2) $(NAME_B_2)
-	@make fclean -C ./libft
+	rm -rf $(NAME_1) $(NAME_B_1) $(NAME_2) $(NAME_B_2)
+	make fclean -C ./libft
 
 re: fclean all bonus
 

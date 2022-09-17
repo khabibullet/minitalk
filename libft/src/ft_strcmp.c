@@ -6,11 +6,11 @@
 /*   By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:10:57 by anemesis          #+#    #+#             */
-/*   Updated: 2022/05/24 15:00:11 by anemesis         ###   ########.fr       */
+/*   Updated: 2022/09/17 11:05:01 by anemesis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../shell.h"
+#include "../libft.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
