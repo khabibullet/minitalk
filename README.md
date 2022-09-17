@@ -21,9 +21,9 @@ Source files are lintered by "**42 Norminette**" linter.
 Mandatory part
 
 ```console
-host@name:~$ make
+host@name:~$ make # mandatory
 host@name:~$ ./server
-host@name:~$ ./clien *server_PID* *message*
+host@name:~$ ./clien server_PID "your message"
 ```
 
 Bonus part
@@ -31,7 +31,7 @@ Bonus part
 ```console
 host@name:~$ make bonus
 host@name:~$ ./server_b
-host@name:~$ ./clien_b *server_PID* *message*
+host@name:~$ ./clien_b server_PID "your message"
 ```
 <br><br>
 
