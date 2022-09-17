@@ -1,6 +1,6 @@
 # **minitalk**
 
-There is several ways to share data between two UNIX processes: pipes, shared files, sockets etc. But why not to send data bitwise via user UNIX signals: SIGUSR1 as 1 and SIGUSR2 as 0.
+There are several ways to share data between two UNIX processes: pipes, shared files, sockets etc. But why not to send data bitwise via user UNIX signals: SIGUSR1 as 1 and SIGUSR2 as 0.
 <br><br>
 
 <img src="readme/minitalk.gif" alt="drawing" width="750" title="room.rt"/>
