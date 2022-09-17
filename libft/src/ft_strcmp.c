@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anemesis <anemesis@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/23 12:15:23 by anemesis          #+#    #+#             */
-/*   Updated: 2022/05/23 16:18:03 by anemesis         ###   ########.fr       */
+/*   Created: 2022/05/22 14:10:57 by anemesis          #+#    #+#             */
+/*   Updated: 2022/05/24 15:00:11 by anemesis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../shell.h"
 
-char	*ft_strdup(const char *s1)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	*ptr;
-	size_t	lens;
+	size_t	i;
+	int		dif;
 
-	lens = ft_strlen(s1);
-	ptr = malloc(lens + 1);
-	if (ptr == NULL)
-		return (NULL);
-	ptr[lens] = '\0';
-	ft_strlcpy(ptr, s1, lens + 1);
-	return (ptr);
+	i = 0;
+	dif = 0;
+	while (dif == 0 && (s1[i] != 0 || s2[i] != 0))
+	{
+		dif = (unsigned char)s1[i] - (unsigned char)s2[i];
+		++i;
+	}
+	return (dif);
 }
